@@ -13,6 +13,7 @@ function drawBG(){
 const bottomPadding = 15;
 const scale = 0.15;
 const sensitivity = 7;
+const rotationSensitivity = 0.15;
 
 // *********** *********** 
 
@@ -20,6 +21,8 @@ class Player{
     constructor(){
         this.velocity = { xVel: 0.0, yVel: 0.0 } // if an object moves, it must have a velocity
         
+        this.rotation = 0;
+
         const SpaceshipImage = new Image(); // todo: to be added
         SpaceshipImage.src = './assets/spaceship.png';
         SpaceshipImage.onload = ()=>{
@@ -36,14 +39,21 @@ class Player{
     }
 
     draw(){ // to draw the player
-        // c.fillStyle = 'red' // temporary
-        // c.fillRect(this.position.x, this.position.y, this.width, this.height)
+        c.save();
+
+        c.translate(this.position.x + this.width/2, this.position.y + this.height/2)    // translate canvas to center of spaceship and then rotate canvas so that spaceship will rotate
+        c.rotate(this.rotation)
+        c.translate(-(this.position.x + this.width/2), -(this.position.y + this.height/2))    // translate canvas back to original position
+
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+        
+        c.restore();
     }
 
     update(){
         if(this.image){
             this.draw();
+
             this.position.x += this.velocity.xVel;
         }
     }  
@@ -70,11 +80,18 @@ function animate(){
     drawBG();
     player.update();
 
-    if(keyFlags.left && player.position.x>=0) player.velocity.xVel = -sensitivity;
-    else if(keyFlags.right && (player.position.x + player.width)<=canvas.width) player.velocity.xVel = sensitivity;
-    else player.velocity.xVel = 0
-
-    //*else shoot
+    if(keyFlags.left && player.position.x>=0){
+        player.velocity.xVel = -movementSensitivity;
+        player.rotation = -rotationSensitivity;
+    }
+    else if(keyFlags.right && (player.position.x + player.width)<=canvas.width){
+        player.velocity.xVel = movementSensitivity;
+        player.rotation = rotationSensitivity;
+    }
+    else {
+        player.velocity.xVel = 0;
+        player.rotation = 0;
+    }
 }
 animate();
 
