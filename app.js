@@ -18,8 +18,6 @@ const sensitivity = 7;
 
 class Player{
     constructor(){
-        // this.sensitivity = 10;
-
         this.velocity = { xVel: 0.0, yVel: 0.0 } // if an object moves, it must have a velocity
         
         const SpaceshipImage = new Image(); // todo: to be added
@@ -43,24 +41,20 @@ class Player{
         c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
     }
 
-    /* // deprecated
-    moveLeft(){
-        this.position.x -= this.sensitivity;
-    }
-    moveRight(){
-        this.position.x += this.sensitivity;
-    }*/
-
     update(){
         if(this.image){
             this.draw();
-
             this.position.x += this.velocity.xVel;
         }
     }  
+
+    // XisValid(){
+    //     if(this.position.x){
+    //         if(this.position.x >= 0 && this.position.x <= canvas.width) return true;
+    //     }
+    //     return false;
+    // }
 }
-
-
 
 // *********** gameplay *********** 
 
