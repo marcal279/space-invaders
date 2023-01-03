@@ -70,8 +70,8 @@ function animate(){
     drawBG();
     player.update();
 
-    if(keyFlags.left) player.velocity.xVel = -sensitivity;
-    else if(keyFlags.right) player.velocity.xVel = sensitivity;
+    if(keyFlags.left && player.position.x>=0) player.velocity.xVel = -sensitivity;
+    else if(keyFlags.right && (player.position.x + player.width)<=canvas.width) player.velocity.xVel = sensitivity;
     else player.velocity.xVel = 0
 
     //*else shoot
