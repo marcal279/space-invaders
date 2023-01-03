@@ -12,7 +12,7 @@ function drawBG(){
 
 const bottomPadding = 15;
 const scale = 0.15;
-const sensitivity = 5;
+const sensitivity = 7;
 
 // *********** *********** 
 
