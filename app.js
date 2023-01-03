@@ -12,7 +12,7 @@ function drawBG(){
 
 const bottomPadding = 15;
 const scale = 0.15;
-const sensitivity = 7;
+const movementSensitivity = 7;
 const rotationSensitivity = 0.15;
 
 // *********** *********** 
