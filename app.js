@@ -1,7 +1,8 @@
 const canvas = document.getElementsByTagName('canvas')[0];
 console.log(canvas)
 
-canvas.width = innerWidth; canvas.height = innerHeight-10;
+canvas.width = innerWidth; 
+canvas.height = innerHeight-10;
 
 const c = canvas.getContext('2d');  // context of the canvas, lets us access all methods for 2d rendering
 
@@ -15,7 +16,7 @@ const scale = 0.15;
 const movementSensitivity = 7;
 const rotationSensitivity = 0.15;
 
-// *********** *********** 
+// *********** Classes *********** 
 
 class Player{
     constructor(){
@@ -57,18 +58,36 @@ class Player{
             this.position.x += this.velocity.xVel;
         }
     }  
+}
 
-    // XisValid(){
-    //     if(this.position.x){
-    //         if(this.position.x >= 0 && this.position.x <= canvas.width) return true;
-    //     }
-    //     return false;
-    // }
+class Projectile{
+    constructor(position, velocity){    //!! tutorial has it as {position, velocity}, i.e., a single object
+        this.position = position;
+        this.velocity = velocity;
+
+        this.radius = 3;                // circle projectiles
+    }
+
+    draw(){
+        c.beginPath();
+        c.arc(this.position.x, this.position.y, this.radius, 0, 2*Math.PI, false);
+        c.fillStyle = 'red';
+        c.fill();
+        c.closePath();
+    }
+
+    update(){
+        this.draw();
+        this.position.x += this.velocity.xVel;
+        this.position.y += this.velocity.yVel;
+    }
 }
 
 // *********** gameplay *********** 
 
 const player = new Player();
+const projectiles = [
+];
 const keyFlags = {
     left: false,
     right: false,
@@ -78,7 +97,12 @@ const keyFlags = {
 function animate(){
     requestAnimationFrame(animate); // tells the browser that you wish to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint
     drawBG();
+
     player.update();
+
+    projectiles.forEach((projectile, index, array)=>{
+      projectile.update();  
+    })
 
     if(keyFlags.left && player.position.x>=0){
         player.velocity.xVel = -movementSensitivity;
