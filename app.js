@@ -98,6 +98,10 @@ const keyFlags = {
     shoot: false
 }
 
+function showProj(){
+    console.log(projectiles)
+}
+
 function animate(){
     requestAnimationFrame(animate); // tells the browser that you wish to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint
     drawBG();
@@ -105,7 +109,13 @@ function animate(){
     player.update();
 
     projectiles.forEach((projectile, index, array)=>{
-      projectile.update();  
+        if((projectile.position.y + projectile.radius) <= 0){
+            projectiles.splice(index, 1);
+        }
+        else{
+            projectile.update();
+        }
+
     })
 
     if(keyFlags.left && player.position.x>=0){
@@ -142,6 +152,18 @@ addEventListener('keydown', (keyEvent)=>{   // when a key pressed
 
         case " ":
             //shoot
+            projectiles.push(
+                new Projectile(
+                    { 
+                        x: player.position.x + player.width/2, 
+                        y: player.position.y
+                    },
+                    {
+                        xVel: player.velocity.xVel/2,
+                        yVel: -10
+                    }
+                )
+            )
             keyFlags.shoot = true;
             break;
         
