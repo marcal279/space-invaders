@@ -86,12 +86,7 @@ class Projectile{
 // *********** gameplay *********** 
 
 const player = new Player();
-const projectiles = [
-    new Projectile(
-        { x:300, y:300 },
-        { xVel: 0, yVel: 0 }
-    )
-];
+const projectiles = [];
 const keyFlags = {
     left: false,
     right: false,
