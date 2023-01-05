@@ -87,6 +87,51 @@ class Projectile{
     }
 }
 
+var InvaderWidth = 0;   // needed for grid calculation 
+var InvaderHeight = 0; 
+
+class Invader{
+    constructor(position){
+        this.velocity = { xVel: 0.0, yVel: 0.0 };
+        this.rotation = 0;
+
+        const InvaderImage = new Image();
+        InvaderImage.src = './assets/invader.png';
+        InvaderImage.onload = ()=>{
+            this.image = InvaderImage;
+
+            InvaderWidth = this.width;
+            InvaderHeight = this.height;
+
+            this.position = {
+                x: position.x,  // passed as constructor arg
+                y: position.y
+            }
+        }
+    }
+
+    draw(){
+        c.save();
+
+        c.translate(this.position.x + this.width/2,  this.position.y + this.height/2);
+        c.rotate(this.rotation)
+        c.translate(-(this.position.x + this.width/2),  -(this.position.y + this.height/2));
+
+        c.drawImage(this.image, this.position.x, this.position.y, this.width, this.height);
+
+        c.restore();
+    }
+
+    update(){
+        if(this.image){
+            this.draw();
+
+            this.position.x += this.velocity.xVel;
+            this.position.y += this.velocity.yVel;
+        }
+    }
+}
+
 // *********** gameplay *********** 
 
 const player = new Player();
