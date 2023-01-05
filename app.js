@@ -94,11 +94,14 @@ class Invader{
     constructor(position){
         this.velocity = { xVel: 0.0, yVel: 0.0 };
         this.rotation = 0;
+        this.scale = 1.5;
 
         const InvaderImage = new Image();
         InvaderImage.src = './assets/invader.png';
         InvaderImage.onload = ()=>{
             this.image = InvaderImage;
+            this.width = InvaderImage.width * this.scale;
+            this.height = InvaderImage.height * this.scale;
 
             InvaderWidth = this.width;
             InvaderHeight = this.height;
