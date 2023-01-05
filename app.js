@@ -135,10 +135,74 @@ class Invader{
     }
 }
 
+class InvaderGrid{     // for the grid of invaders. modularizes each grid of invaders, so that if we move grid we move all invaders in it
+    constructor(){
+        this.position = {
+            x: 0,
+            y: 0
+        }
+        this.velocity = {
+            xVel: 2.5,
+            yVel: 4
+        }
+
+        this.invaders = []
+
+        this.dimensions = {
+            rows: getRandomInt(4),  // min 1, max 5
+            cols: getRandomInt(7,4) // min 4, max 12
+        }
+
+        this.padding = {
+            colPadding: 50,
+            rowPadding: 50
+        }
+
+        this.width = this.dimensions.cols * (InvaderWidth + this.padding.colPadding);
+        this.height = this.dimensions.rows * (InvaderHeight + this.padding.rowPadding);
+
+        for(let row = 0; row < this.dimensions.rows; row++){
+            for(let col = 0; col < this.dimensions.cols; col++){
+                this.invaders.push(
+                    new Invader(
+                        {
+                            x: this.padding.colPadding * col, 
+                            y: this.padding.rowPadding * row
+                        }
+                    )
+                );
+            }
+        }
+        console.log(this.invaders)
+    }
+
+    update(){
+        this.position.x += this.velocity.xVel;
+        this.position.y += this.velocity.yVel;
+
+        if( (this.position.x + this.width >= canvas.width) || (this.position.x <= 0) ){     // topmost point so dont need this.width for 2nd condition
+            this.velocity.xVel *= -1;
+        }
+        if( (this.position.y + this.height >= canvas.height) || (this.position.y <= 0) ){
+            this.velocity.yVel *= -1;
+        }
+
+        this.invaders.forEach((invader, index, array)=>{
+            invader.velocity.xVel = this.velocity.xVel; //!! this is done in grid.update
+            invader.velocity.yVel = this.velocity.yVel;
+
+            invader.update(); //!! in tutorial this is in grids.forEach
+        })
+    }
+}
+
 // *********** gameplay *********** 
 
 const player = new Player();
 const projectiles = [];
+const invaderGrids = [          // array for multiple grids
+    new InvaderGrid()
+];
 const keyFlags = {
     left: false,
     right: false,
@@ -154,6 +218,11 @@ function animate(){
     drawBG();
 
     player.update();
+    invaderGrids.forEach((grid, index, array)=>{
+        grid.update();
+
+        //!! in tutorial invader.update() comes here 
+    })
 
     projectiles.forEach((projectile, index, array)=>{
         if((projectile.position.y + projectile.radius) <= 0){
