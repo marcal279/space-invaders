@@ -16,7 +16,6 @@ function getRandomInt(max, min=0){
 }
 
 const bottomPadding = 15;
-const scale = 0.15;
 const movementSensitivity = 7;
 const rotationSensitivity = 0.15;
 
@@ -27,14 +26,14 @@ class Player{
         this.velocity = { xVel: 0.0, yVel: 0.0 } // if an object moves, it must have a velocity
         
         this.rotation = 0;
+        this.scale = 0.15;
 
         const SpaceshipImage = new Image(); // todo: to be added
         SpaceshipImage.src = './assets/spaceship.png';
         SpaceshipImage.onload = ()=>{
-            // const scale = 0.5;
             this.image = SpaceshipImage;
-            this.width = SpaceshipImage.width * scale; 
-            this.height = SpaceshipImage.height * scale // because player won't be just a point object, image will have some width and height   
+            this.width = SpaceshipImage.width * this.scale; 
+            this.height = SpaceshipImage.height * this.scale // because player won't be just a point object, image will have some width and height   
 
             this.position = { 
                 x: canvas.width/2 - this.width, 
