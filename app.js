@@ -11,6 +11,10 @@ function drawBG(){
     c.fillRect(0,0,innerWidth, innerHeight)
 }
 
+function getRandomInt(max, min=0){
+    return Math.ceil(Math.random()*max)+min;    // using ceil so that it doesnt generate 0. limits of random number are thus (0,max+1]
+}
+
 const bottomPadding = 15;
 const scale = 0.15;
 const movementSensitivity = 7;
