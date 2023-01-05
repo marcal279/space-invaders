@@ -225,7 +225,9 @@ function animate(){
 
     projectiles.forEach((projectile, index, array)=>{
         if((projectile.position.y + projectile.radius) <= 0){
-            projectiles.splice(index, 1);
+            setTimeout(()=>{                        // just to prevent a big, otherwise just the splice would also work
+                projectiles.splice(index, 1);
+            }, 0)
         }
         else{
             projectile.update();
