@@ -229,6 +229,7 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
         if( (this.position.x + this.width > canvas.width) || (this.position.x <= 0) ){     // topmost point so dont need this.width for 2nd condition
             // console.log(`position = ${this.position.x}, width = ${this.width}, canvas.width = ${canvas.width}, position+width = ${this.position.x+this.width}`)
             this.velocity.xVel *= -1;
+            this.velocity.yVel = InvaderHeight;    // moves it down one line
         }
         // if( (this.position.y + this.height >= canvas.height) || (this.position.y <= 0) ){
         //     this.velocity.yVel *= -1;
