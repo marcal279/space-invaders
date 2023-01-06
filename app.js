@@ -139,6 +139,27 @@ class Invader{
     }
 }
 
+class InvaderProjectile{
+    constructor(position, velocity){    //!! tutorial has it as {position, velocity}, i.e., a single object
+        this.position = position;
+        this.velocity = velocity;
+
+        this.width = 5;
+        this.height = 10                // Rectangle projectiles
+    }
+
+    draw(){
+        c.fillStyle = 'white';
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    }
+
+    update(){
+        this.draw();
+        this.position.x += this.velocity.xVel;
+        this.position.y += this.velocity.yVel;
+    }
+}
+
 class InvaderGrid{     // for the grid of invaders. modularizes each grid of invaders, so that if we move grid we move all invaders in it
     constructor(){
         this.position = {
