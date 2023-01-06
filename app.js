@@ -261,6 +261,9 @@ function showProj(){
     console.log(projectiles)
 }
 
+var frames = 0;     // no. of frames passed
+var randomInterval;
+
 function animate(){
     requestAnimationFrame(animate); // tells the browser that you wish to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint
     drawBG();
@@ -269,7 +272,51 @@ function animate(){
     invaderGrids.forEach((grid, index, array)=>{
         grid.update();
 
-        //!! in tutorial invader.update() comes here 
+    invaderProjectiles.forEach((invaderProjectile, index, array)=>{
+        invaderProjectile.update();
+
+        if(invaderProjectile.position.y + invaderProjectile.height >= canvas.height){
+            setTimeout(()=>{
+                array.splice(index, 1)
+            }, 0);
+        }
+
+        if((invaderProjectile.position.y + invaderProjectile.height >= player.position.y) &&
+        (isBetween(invaderProjectile.position.x, player.position.x, player.position.x + player.width) ||
+        isBetween(invaderProjectile.position.x-invaderProjectile.width, player.position.x, player.position.x + player.width)) ){
+            alert('you lose')
+        }
+    })
+
+    invaderGrids.forEach((invaderGrid, gridIndex, gridArray)=>{
+        invaderGrid.update();
+        
+        if(frames%100==0 && invaderGrid.invaders.length>0){
+            let randomInvader = invaderGrid.invaders[getRandomInt(invaderGrid.invaders.length)]
+            if(randomInvader) randomInvader.shoot(invaderProjectiles);
+        }
+
+        invaderGrid.invaders.forEach((invader, invaderIndex, invaderArray)=>{
+            projectiles.forEach((projectile, projectileIndex, projectileArray)=>{
+                if( (projectile.position.y <= (invader.position.y+invader.height)) && (isBetween(projectile.position.x+projectile.radius, invader.position.x, invader.position.x+invader.width)) ){
+                    setTimeout(()=>{    // to avoid bugs
+                        let invaderFound = invaderArray.find((invaderActual)=>{
+                            return invaderActual === invader
+                        })
+                        let projectileFound = projectileArray.find((projectileActual)=>{
+                            return projectileActual === projectile
+                        })
+                        
+                        if(invaderFound && projectileFound){
+                            invaderArray.splice(invaderIndex,1);
+                            projectileArray.splice(projectileIndex,1)
+                        }
+                    }, 0)                    
+                }
+            })
+        })
+
+        if(invaderGrid.invaders.length < 1) gridArray.splice(gridIndex, 1)
     })
 
     projectiles.forEach((projectile, index, array)=>{
