@@ -15,6 +15,11 @@ function getRandomInt(max, min=0){
     return Math.ceil(Math.random()*max)+min;    // using ceil so that it doesnt generate 0. limits of random number are thus (0,max+1]
 }
 
+function isBetween(arg, min, max){
+    if(arg>=min && arg <= max) return true;
+    return false;
+}
+
 const bottomPadding = 15;
 const movementSensitivity = 7;
 const rotationSensitivity = 0.15;
