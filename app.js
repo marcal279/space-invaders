@@ -224,12 +224,15 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
         this.position.x += this.velocity.xVel;
         this.position.y += this.velocity.yVel;
 
-        if( (this.position.x + this.width >= canvas.width) || (this.position.x <= 0) ){     // topmost point so dont need this.width for 2nd condition
+        this.velocity.yVel = 0;     // makes sure it moves down only one line
+
+        if( (this.position.x + this.width > canvas.width) || (this.position.x <= 0) ){     // topmost point so dont need this.width for 2nd condition
+            // console.log(`position = ${this.position.x}, width = ${this.width}, canvas.width = ${canvas.width}, position+width = ${this.position.x+this.width}`)
             this.velocity.xVel *= -1;
         }
-        if( (this.position.y + this.height >= canvas.height) || (this.position.y <= 0) ){
-            this.velocity.yVel *= -1;
-        }
+        // if( (this.position.y + this.height >= canvas.height) || (this.position.y <= 0) ){
+        //     this.velocity.yVel *= -1;
+        // }    //* because we want to push them off the bottom of the screen
 
         this.invaders.forEach((invader, index, array)=>{
             invader.velocity.xVel = this.velocity.xVel; //!! this is done in grid.update
