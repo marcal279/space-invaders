@@ -198,8 +198,12 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
             rowPadding: 50
         }
 
-        this.width = this.dimensions.cols * (InvaderWidth + this.padding.colPadding);
-        this.height = this.dimensions.rows * (InvaderHeight + this.padding.rowPadding);
+
+        // bug fix
+        // this.width = this.dimensions.cols * (InvaderWidth + this.padding.colPadding);
+        // this.height = this.dimensions.rows * (InvaderHeight + this.padding.rowPadding);
+        this.width = this.dimensions.cols * (InvaderWidth);
+        this.height = this.dimensions.rows * (InvaderHeight);
 
         for(let row = 0; row < this.dimensions.rows; row++){
             for(let col = 0; col < this.dimensions.cols; col++){
