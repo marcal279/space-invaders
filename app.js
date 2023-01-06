@@ -182,8 +182,8 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
             y: 0
         }
         this.velocity = {
-            xVel: 2.5,
-            yVel: 4
+            xVel: 4,
+            yVel: 0     // we set yVel in the update itself
         }
 
         this.invaders = []
