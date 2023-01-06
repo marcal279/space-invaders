@@ -343,6 +343,15 @@ function animate(){
         player.velocity.xVel = 0;
         player.rotation = 0;
     }
+
+    //* spawn enemies
+    if(!(frames % randomInterval)){
+        invaderGrids.push(new InvaderGrid());
+        randomInterval = getRandomInt(500,500);
+        frames = 0;
+    }
+
+    frames++;
 }
 animate();
 
