@@ -1,5 +1,5 @@
 const canvas = document.getElementsByTagName('canvas')[0];
-console.log(canvas)
+// console.log(canvas)
 
 canvas.width = innerWidth; 
 canvas.height = innerHeight-10;
@@ -217,7 +217,7 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
                 );
             }
         }
-        console.log(this.invaders)
+        // console.log(this.invaders)
     }
 
     update(){
@@ -248,15 +248,15 @@ class InvaderGrid{     // for the grid of invaders. modularizes each grid of inv
 
 const player = new Player();
 const projectiles = [];
-const invaderGrids = [          // array for multiple grids
-    new InvaderGrid()
-];
+const invaderGrids = [];          // array for multiple grids
 const keyFlags = {
     left: false,
     right: false,
     shoot: false
 }
+const invaderProjectiles = [];
 
+// purely debug function
 function showProj(){
     console.log(projectiles)
 }
@@ -268,9 +268,8 @@ function animate(){
     requestAnimationFrame(animate); // tells the browser that you wish to perform an animation and requests that the browser calls a specified function to update an animation before the next repaint
     drawBG();
 
+    //* update
     player.update();
-    invaderGrids.forEach((grid, index, array)=>{
-        grid.update();
 
     invaderProjectiles.forEach((invaderProjectile, index, array)=>{
         invaderProjectile.update();
