@@ -137,6 +137,21 @@ class Invader{
             this.position.y += this.velocity.yVel;
         }
     }
+
+    shoot(invaderProjectiles){      // !! consider renaming to addInvaderProjectile()
+        invaderProjectiles.push(
+            new InvaderProjectile(
+                {
+                    x: this.position.x + (this.width/2),
+                    y: this.position.y + this.height
+                },
+                {
+                    xVel: 0,
+                    yVel: 5
+                }
+            )
+        )
+    }
 }
 
 class InvaderProjectile{
